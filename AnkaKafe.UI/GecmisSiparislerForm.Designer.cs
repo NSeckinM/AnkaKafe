@@ -30,8 +30,8 @@ namespace AnkaKafe.UI
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.dgvSiparisler = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
+            this.dgvSiparisler = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvSiparisDetaylar = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -62,18 +62,6 @@ namespace AnkaKafe.UI
             this.splitContainer1.SplitterDistance = 262;
             this.splitContainer1.TabIndex = 0;
             // 
-            // dgvSiparisler
-            // 
-            this.dgvSiparisler.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvSiparisler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSiparisler.Location = new System.Drawing.Point(3, 32);
-            this.dgvSiparisler.Name = "dgvSiparisler";
-            this.dgvSiparisler.RowHeadersWidth = 51;
-            this.dgvSiparisler.Size = new System.Drawing.Size(798, 227);
-            this.dgvSiparisler.TabIndex = 1;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -84,6 +72,24 @@ namespace AnkaKafe.UI
             this.label1.TabIndex = 0;
             this.label1.Text = "Siparişler";
             // 
+            // dgvSiparisler
+            // 
+            this.dgvSiparisler.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvSiparisler.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvSiparisler.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvSiparisler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSiparisler.Location = new System.Drawing.Point(3, 32);
+            this.dgvSiparisler.MultiSelect = false;
+            this.dgvSiparisler.Name = "dgvSiparisler";
+            this.dgvSiparisler.RowHeadersVisible = false;
+            this.dgvSiparisler.RowHeadersWidth = 51;
+            this.dgvSiparisler.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvSiparisler.Size = new System.Drawing.Size(798, 227);
+            this.dgvSiparisler.TabIndex = 1;
+            this.dgvSiparisler.SelectionChanged += new System.EventHandler(this.dgvSiparisler_SelectionChanged);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -93,17 +99,21 @@ namespace AnkaKafe.UI
             this.label2.Size = new System.Drawing.Size(122, 20);
             this.label2.TabIndex = 0;
             this.label2.Text = "Sipariş Detayları";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // dgvSiparisDetaylar
             // 
             this.dgvSiparisDetaylar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvSiparisDetaylar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvSiparisDetaylar.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvSiparisDetaylar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSiparisDetaylar.Location = new System.Drawing.Point(3, 23);
+            this.dgvSiparisDetaylar.MultiSelect = false;
             this.dgvSiparisDetaylar.Name = "dgvSiparisDetaylar";
+            this.dgvSiparisDetaylar.RowHeadersVisible = false;
             this.dgvSiparisDetaylar.RowHeadersWidth = 51;
+            this.dgvSiparisDetaylar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSiparisDetaylar.Size = new System.Drawing.Size(798, 232);
             this.dgvSiparisDetaylar.TabIndex = 1;
             // 

@@ -53,7 +53,7 @@ namespace AnkaKafe.UI
             }
             else if (e.ClickedItem == TsmiGecmissiparisler)
             {
-                new GecmisSiparislerForm().ShowDialog();
+                new GecmisSiparislerForm(db).ShowDialog();
             }
         }
 
@@ -72,7 +72,12 @@ namespace AnkaKafe.UI
             }
             
             SiparislerForm siparislerForm = new SiparislerForm(db,siparis);
-            siparislerForm.Show();
+            siparislerForm.ShowDialog();
+
+            if (siparis.Durum != SiparisDurum.Aktif)
+            {
+                lvi.ImageKey = "bos";
+            }
 
         }
         private Siparis SiparisBul(int masaNo)
