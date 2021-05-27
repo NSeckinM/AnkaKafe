@@ -49,7 +49,7 @@ namespace AnkaKafe.UI
         {
             if (e.ClickedItem == TsmiUrunler)
             {
-                new UrunlerForm().ShowDialog();
+                new UrunlerForm(db).ShowDialog();
             }
             else if (e.ClickedItem == TsmiGecmissiparisler)
             {

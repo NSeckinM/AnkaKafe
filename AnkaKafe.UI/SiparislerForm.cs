@@ -58,6 +58,8 @@ namespace AnkaKafe.UI
         {
             if (cboUrun.SelectedIndex == -1|| nudAdet.Value<1) return; //seçili ürün yoksa bu satır.
             Urun urun = (Urun)cboUrun.SelectedItem;
+
+
             SiparisDetay siparisDetay = new SiparisDetay()
             {
                 UrunAdi = urun.UrunAd,
