@@ -19,6 +19,7 @@ namespace AnkaKafe.UI
         {
             InitializeComponent();
             OrnekUrunleriEkle();
+            Icon = Resource.AnkaKafe;
             masalarImagelist.Images.Add("bos", Resource.bos);
             masalarImagelist.Images.Add("dolu", Resource.dolu);
             MasalariOlustur();
@@ -72,6 +73,9 @@ namespace AnkaKafe.UI
             }
             
             SiparislerForm siparislerForm = new SiparislerForm(db,siparis);
+            //event oluşturmada 4. adım delege tanımlandı atandı
+            siparislerForm.MasaTasindi += SiparisForm_MasaTasindi;
+
             siparislerForm.ShowDialog();
 
             if (siparis.Durum != SiparisDurum.Aktif)
@@ -79,7 +83,31 @@ namespace AnkaKafe.UI
                 lvi.ImageKey = "bos";
             }
 
+            
+
+
         }
+
+        private void SiparisForm_MasaTasindi(object sender, MasaTasindiEventArgs e)
+        {
+            foreach (ListViewItem lvi in lvwMasalar.Items)
+            {
+                int masaNo = (int)lvi.Tag;
+                if (masaNo == e.EskiMasaNo)
+                {
+                    lvi.ImageKey = "bos";
+                }
+                else if (masaNo == e.YeniMasaNo)
+                {
+                    lvi.ImageKey = "dolu";
+                }
+            }
+        }
+
+        
+
+
+
         private Siparis SiparisBul(int masaNo)
         {
            // return db.AktifSiparisler.FirstOrDefault(s => s.MasaNo == masaNo);

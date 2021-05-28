@@ -13,6 +13,11 @@ namespace AnkaKafe.UI
 {
     public partial class SiparislerForm : Form
     {
+        //2. adım
+        // eventhandler delegesi ile event oluşturulur.
+        // eger event ile ilgili argümanlar varsa generik olan kullanılır.
+        public event EventHandler<MasaTasindiEventArgs> MasaTasindi;
+
         private readonly KafeVeri _db;
         private readonly Siparis _siparis;
         private readonly BindingList<SiparisDetay> _blSiparisDetaylar;
@@ -28,8 +33,30 @@ namespace AnkaKafe.UI
             MasaNoGuncelle();
             FiyatGuncelle();
             DetaylarıListele();
+            MasaNolariDoldur();
             _blSiparisDetaylar.ListChanged += _blSiparisDetaylar_ListChanged;
 
+
+        }
+
+        private void MasaNolariDoldur()
+        {
+            //List<int> bosMasaNolar = new List<int>();
+            //for (int i = 1; i < _db.MasaAdet; i++)
+            //{
+            //    // aktif siparişlerde i masa nosuna sahip sipariş var değilse / yoksa
+            //    if (!_db.AktifSiparisler.Any(x => x.MasaNo == i))
+            //    {
+            //        bosMasaNolar.Add(i);
+            //    }
+            //}
+            //cboMasaNo.DataSource = bosMasaNolar;
+
+            cboMasaNo.DataSource = Enumerable
+                .Range(1, 20)
+                .Where(i =>! _db.AktifSiparisler
+                .Any(s => s.MasaNo == i))
+                .ToList();
 
         }
 
@@ -121,5 +148,24 @@ namespace AnkaKafe.UI
             Close();
         }
 
+        private void BtnTasi_Click(object sender, EventArgs e)
+        {
+            if (cboMasaNo.SelectedIndex == -1) return;
+            int eskiMasaNo = _siparis.MasaNo;
+            int yeniMasaNo = (int)cboMasaNo.SelectedItem;
+            _siparis.MasaNo = yeniMasaNo;
+
+            MasaNolariDoldur();// dolu masalar değişti.
+
+            // 3. Adım
+            // event e atanmış bir metot var ise uygun noktada uygun argümanlarla metot çağırılır.
+
+            if (MasaTasindi != null)
+            {
+                MasaTasindi(this, new MasaTasindiEventArgs(eskiMasaNo, yeniMasaNo));
+            }
+            MasaNoGuncelle();
+
+        }
     }
 }
