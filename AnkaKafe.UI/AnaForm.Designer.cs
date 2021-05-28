@@ -91,6 +91,7 @@ namespace AnkaKafe.UI
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "AnaForm";
             this.Text = "Anka Cafe Siparis Takip Otomasyonu";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AnaForm_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

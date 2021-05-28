@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,15 +16,32 @@ namespace AnkaKafe.UI
 {
     public partial class AnaForm : Form
     {
-        KafeVeri db = new KafeVeri();
+        KafeVeri db;
         public AnaForm()
         {
+            VerileriOku();
             InitializeComponent();
-            OrnekUrunleriEkle();
+            //OrnekUrunleriEkle(); jsondan sonra kaldırılacak.
             Icon = Resource.AnkaKafe;
             masalarImagelist.Images.Add("bos", Resource.bos);
             masalarImagelist.Images.Add("dolu", Resource.dolu);
             MasalariOlustur();
+        }
+
+        private void VerileriOku()
+        {
+            try
+            {
+                string json = File.ReadAllText("Veri.json");
+                db = JsonSerializer.Deserialize<KafeVeri>(json);
+            }
+            //eger hata alırsan dosya yoktur yada bozuktur.
+            catch (Exception)
+            {
+                db = new KafeVeri();
+                OrnekUrunleriEkle();
+               
+            }
         }
 
         private void OrnekUrunleriEkle()
@@ -41,9 +60,16 @@ namespace AnkaKafe.UI
                 lvi = new ListViewItem();
                 lvi.Tag = i; // masa no sunu her bir öğenin Tag property'sinde sakladık.
                 lvi.Text = "Masa" + i;
-                lvi.ImageKey = "bos";
+                lvi.ImageKey = MasaDoluMu(i) ? "dolu" : "bos";
                 lvwMasalar.Items.Add(lvi);
             }
+        }
+
+        private bool MasaDoluMu(int masaNo)
+        {
+
+            return db.AktifSiparisler.Any(x => x.MasaNo == masaNo);
+
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -103,11 +129,6 @@ namespace AnkaKafe.UI
                 }
             }
         }
-
-        
-
-
-
         private Siparis SiparisBul(int masaNo)
         {
            // return db.AktifSiparisler.FirstOrDefault(s => s.MasaNo == masaNo);
@@ -120,6 +141,17 @@ namespace AnkaKafe.UI
                 }
             }
             return null;
+        }
+        private void AnaForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            VerileriKaydet();
+        }
+
+        private void VerileriKaydet()
+        {
+            var options = new JsonSerializerOptions() { WriteIndented = true };//json ı düzenli ve okanaklı yazar.
+            string json = JsonSerializer.Serialize(db);
+            File.WriteAllText("Veri.json", json);
         }
     }
 }

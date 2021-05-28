@@ -75,7 +75,7 @@ namespace AnkaKafe.UI
 
                 "Seçili ürün silinecektir onaylıyormusunuz.",
                 "Ürün silme onayı",
-                buttons: MessageBoxButtons.YesNoCancel,
+                buttons: MessageBoxButtons.YesNo,
                 icon: MessageBoxIcon.Exclamation,
                 defaultButton: MessageBoxDefaultButton.Button2
             ) ;
